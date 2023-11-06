@@ -29,25 +29,28 @@ async function run() {
 
         const blogsCollection = client.db("blogs").collection("blog")
 
-        app.post('/blogs',async(req,res)=>{
+        app.post('/blogs', async (req, res) => {
             const blog = req.body;
             const result = await blogsCollection.insertOne(blog);
             res.send(result);
         })
 
-        app.get('/blogs',async(req,res)=>{
+        app.get('/blogs', async (req, res) => {
             const result = await blogsCollection.find(req.body).toArray()
             res.send(result)
         })
 
-        app.get('/blogs',async(req,res)=>{
-            let sortObj = {};
-            const sortField = req.query.sortField
-            const sortOrder = req.query.sortOrder
-            if(sortField && sortOrder){
-                sortObj[sortField] = sortOrder
-            }
-            const result = await blogsCollection.sort(sortObj).toArray()
+        app.get('/blogs/sort', async (req, res) => {
+            // let sortObj = {};
+            // const sortField = req.query.sortField
+            // console.log(sortField);
+            // const sortOrder = req.query.sortOrder
+            // if (sortField && sortOrder) {
+            //     sortObj[sortField] = sortOrder
+            // }
+            // const result = await blogsCollection.sort(sortObj).toArray()
+            // res.send(result)
+            const result = await blogsCollection.find().sort({currentDate:-1,currentTime:-1}).toArray()
             res.send(result)
         })
 
