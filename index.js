@@ -76,13 +76,6 @@ async function run() {
             res.send(result);
         })
 
-
-
-        // app.get('/blogs',async(req,res)=>{
-        //     const result = await blogsCollection.find(req.body).toArray()
-        //     res.send(result)
-        // })
-
         app.get('/blogs/sort', async (req, res) => {
             const result = await blogsCollection.find().sort({ currentDate: -1, currentTime: -1 }).toArray()
             res.send(result)
