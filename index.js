@@ -162,17 +162,17 @@ async function run() {
             res.send(result)
         })
 
-        app.get('/wishlist', verifyToken, async (req, res) => {
+        app.get('/wishlist', async (req, res) => {
             const email = req.query.email
-            if (!email) {
-                res.send([])
-            }
-            // check valid user
-            const decodedEmail = req.decoded.email
-            console.log(decodedEmail);
-            if (email !== decodedEmail) {
-                res.status(403).send({ message: 'Forbidden Access' })
-            }
+            // if (!email) {
+            //     res.send([])
+            // }
+            // // check valid user
+            // const decodedEmail = req.decoded.email
+            // console.log(decodedEmail);
+            // if (email !== decodedEmail) {
+            //     res.status(403).send({ message: 'Forbidden Access' })
+            // }
             const query = { email: email }
             const result = await wishlistCollection.find(query).toArray()
             res.send(result)
